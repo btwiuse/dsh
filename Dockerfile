@@ -7,8 +7,10 @@ RUN bun add -g @deepseek-ai/dsh
 # bun's global bin dir (installs as root in the image)
 ENV PATH="/root/.bun/bin:${PATH}"
 
-# Port used by `dsh web`
-EXPOSE 3080
+# `dsh web` reads its port only from the --port flag (default 3080), so
+# translate the conventional PORT env var into that flag at startup.
+# Override at runtime with: docker run -e PORT=9000 ...
+ENV PORT=8080
+EXPOSE 8080
 
-# Run the DeepSeek Harness web UI (already installed at build time)
-CMD dsh web
+CMD sh -c 'exec dsh web --port "${PORT:-8080}"'
