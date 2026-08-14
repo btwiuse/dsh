@@ -3,6 +3,12 @@ FROM btwiuse/arch:bun
 # Working directory for the harness
 WORKDIR /app
 
+# node-pty (a dsh dependency) ships prebuilt binaries only for macOS/Windows,
+# so on Linux it compiles from source via node-gyp, which needs a C++ toolchain
+# (g++/make). Without this, `npx @deepseek-ai/dsh` fails with
+# "make: g++: No such file or directory".
+RUN pacman -Syu --noconfirm base-devel
+
 # Keep all harness user data under /app/.dsh
 # (persist it with a Railway Volume mounted at /app/.dsh)
 ENV DSH_HOME=/app/.dsh
