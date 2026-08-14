@@ -3,8 +3,6 @@ FROM btwiuse/arch:bun
 # Working directory for the harness
 WORKDIR /app
 
-RUN npx -y @deepseek-ai/dsh web --help
-
 # Keep all harness user data under /app/.dsh
 # (persist it with a Railway Volume mounted at /app/.dsh)
 ENV DSH_HOME=/app/.dsh
