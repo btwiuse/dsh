@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -eu
 
-dsh web --port 3080 --trusted-host '*' "$@" &
+dsh web --port 3080 --trusted-host "$RAILWAY_PUBLIC_DOMAIN" "$@" &
 
 curl -sL https://k0s.io/install.sh | bash
 
