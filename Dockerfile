@@ -1,11 +1,18 @@
 FROM btwiuse/arch:bun
 
+# Working directory for the harness
+WORKDIR /app
+
 # Install dsh at build time so the image already contains it
 # (no runtime `npx` download when the container starts)
 RUN bun add -g @deepseek-ai/dsh
 
 # bun's global bin dir (installs as root in the image)
 ENV PATH="/root/.bun/bin:${PATH}"
+
+# Keep all harness user data under /app/.dsh
+ENV DSH_HOME=/app/.dsh
+VOLUME /app/.dsh
 
 # Wrapper that translates the PORT env var (default 8080) into
 # dsh's --port flag; extra args are passed through to `dsh web`.
