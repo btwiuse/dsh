@@ -1,7 +1,6 @@
 #!/usr/bin/env sh
 set -eu
 
-sleep 1000
 # The dsh CLI reads its listen port only from the --port flag
 # (composed default 3080), so translate the conventional PORT
 # env var (default 8080) into that flag.
