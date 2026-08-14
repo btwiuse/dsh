@@ -7,9 +7,10 @@ FROM node:22-bookworm
 # Working directory for the harness
 WORKDIR /app
 
-# Warm the npx cache at build time and verify the whole install works
-# (node-pty compiles here, not on the first container start)
-RUN npx -y @deepseek-ai/dsh web --help
+# Install dsh at build time so the image already contains it
+# (node-pty compiles here via the image's C++ toolchain; no runtime
+# npx download when the container starts)
+RUN npm install -g @deepseek-ai/dsh
 
 # Keep all harness user data under /app/.dsh
 # (persist it with a Railway Volume mounted at /app/.dsh)

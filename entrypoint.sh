@@ -6,4 +6,4 @@ set -eu
 # env var (default 8080) into that flag.
 #
 # Override at runtime: docker run -e PORT=9000 ...
-exec npx -y @deepseek-ai/dsh web --port "${PORT:-8080}" "$@"
+exec dsh web --port "${PORT:-8080}" "$@"
