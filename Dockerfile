@@ -11,8 +11,8 @@ RUN bun add -g @deepseek-ai/dsh
 ENV PATH="/root/.bun/bin:${PATH}"
 
 # Keep all harness user data under /app/.dsh
+# (persist it with a Railway Volume mounted at /app/.dsh)
 ENV DSH_HOME=/app/.dsh
-VOLUME /app/.dsh
 
 # Wrapper that translates the PORT env var (default 8080) into
 # dsh's --port flag; extra args are passed through to `dsh web`.
