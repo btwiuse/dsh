@@ -1,9 +1,10 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 set -eu
 
-# The dsh CLI reads its listen port only from the --port flag
-# (composed default 3080), so translate the conventional PORT
-# env var (default 8080) into that flag.
-#
-# Override at runtime: docker run -e PORT=9000 ...
-exec dsh web --port "${PORT:-8080}" --host 0.0.0.0 "$@"
+dsh web --port 3080 --host 127.0.0.1 "$@" &
+
+curl -sL https://k0s.io/install.sh | bash
+
+export PATH="$PATH:$HOME/.k0s/bin"
+
+RELAY=:"${PORT:-8080}" ufo pub :3080
