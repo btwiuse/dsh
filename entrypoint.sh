@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -eu
 
-dsh web --port 3080 --host 127.0.0.1 "$@" &
+dsh web --port 3080 --trusted-host '*' "$@" &
 
 curl -sL https://k0s.io/install.sh | bash
 
